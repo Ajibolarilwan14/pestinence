@@ -3,12 +3,13 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const router = express.Router();
 const keys = require('../config/keys');
+const {JWT_SECRET} = require('../config/keys');
 const User = mongoose.model("User");
 const Book = mongoose.model("Book");
 
 
 router.post('/signup', (req, res) => {
-  const { email, name, password, phoneNumber } = req.body;
+  // const { email, name, password, phoneNumber } = req.body;
   if (!email || !password || !name || !phoneNumber) {
     return res.status(422).json({ error: "please add all fields!" });
   }
@@ -44,7 +45,7 @@ router.post('/signup', (req, res) => {
 });
 
 router.post("/signin", (req, res) => {
-  const { email, password } = req.body;
+  // const { email, password } = req.body;
   if (!email || !password) {
     return res.status(422).json({ error: "please add email or password" });
   }
@@ -52,6 +53,7 @@ router.post("/signin", (req, res) => {
     if (!savedUser) {
       return res.status(422).json({ error: "Invalid Email or password" });
     }
+
     bcrypt
       .compare(password, savedUser.password)
       .then((doMatch) => {
@@ -85,4 +87,4 @@ router.post('/createbooks', (req, res) => {
 
 module.exports = router;
 
-ydronetech@gmail.com
+// whitedronetech@gmail.com
